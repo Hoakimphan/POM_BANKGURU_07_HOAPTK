@@ -10,7 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class Account_01_RegisterAndLoginToSystem {
+public class Account_01_RegisterAndLoginToSystem_Level_1_Step_By_Step {
 	WebDriver driver;
 	private String email, userID, password, loginUrl ;
 	@BeforeTest

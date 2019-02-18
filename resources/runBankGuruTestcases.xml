@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="BANKGURU" parallel="false">
-  <test name="Run on Chrome">
+<suite name="BANKGURU" parallel="tests" thread-count= "3">
+  <test name="Run on firefox">
+  <parameter name = "browser" value = "Firefox"/>
     <classes>
-      <class name="com.bankguru.account.Account_01_RegisterAndLoginToSystem"/>
+      <class name="com.bankguru.account.RegisterAndLoginToSystem_Level_2_Apply_AbstractPage_MultiBrowser"/>
+    </classes>
+  </test>
+  <test name="Run on Chrome">
+  <parameter name = "browser" value = "Chrome"/>
+    <classes>
+      <class name="com.bankguru.account.RegisterAndLoginToSystem_Level_2_Apply_AbstractPage_MultiBrowser"/>
+    </classes>
+  </test>
+  <test name="Run on Chrome Headless">
+  <parameter name = "browser" value = "ChromeHeadless"/>
+    <classes>
+      <class name="com.bankguru.account.RegisterAndLoginToSystem_Level_2_Apply_AbstractPage_MultiBrowser"/>
     </classes>
   </test>
 </suite> 
