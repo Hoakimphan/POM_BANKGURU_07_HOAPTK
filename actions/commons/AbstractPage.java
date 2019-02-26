@@ -19,7 +19,7 @@ public class AbstractPage {
 	{
 		driver.get(url);
 	}
-	public String getCurrentUrl(WebDriver driver)
+	public String getCurrentUrl(WebDriver driver)//lay bien drive trong class LoginPageObject (driver o LoginPageObject bay gio chua co gia tri => driver ow ham nay = null)
 	{
 		return driver.getCurrentUrl();
 	}

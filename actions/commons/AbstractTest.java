@@ -1,5 +1,6 @@
 package commons;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -30,9 +31,17 @@ public class AbstractTest {
 			options.addArguments("window-size=1600x900");
 			driver = new ChromeDriver(options);
 		}
+		driver.get(Constant.DEV_URL);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		return driver;
+	}
+	//common function se dc dua vao class nay
+	public int randomEmail() {
+		Random random = new Random();
+		int number = random.nextInt(99999);
+		System.out.println("Random number: =" + number);
+		return number;
 	}
 
 }

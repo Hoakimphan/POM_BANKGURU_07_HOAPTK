@@ -3,10 +3,10 @@
   <test name="Run on firefox">
   <parameter name = "browser" value = "Firefox"/>
     <classes>
-      <class name="com.bankguru.account.RegisterAndLoginToSystem_Level_2_Apply_AbstractPage_MultiBrowser"/>
+      <class name="com.bankguru.account.RegisterAndLoginToSystem_Level_5_WebDriverLifeCycle"/>
     </classes>
   </test>
-  <test name="Run on Chrome">
+  <!-- <test name="Run on Chrome">
   <parameter name = "browser" value = "Chrome"/>
     <classes>
       <class name="com.bankguru.account.RegisterAndLoginToSystem_Level_2_Apply_AbstractPage_MultiBrowser"/>
@@ -17,5 +17,5 @@
     <classes>
       <class name="com.bankguru.account.RegisterAndLoginToSystem_Level_2_Apply_AbstractPage_MultiBrowser"/>
     </classes>
-  </test>
+  </test> -->
 </suite> 
