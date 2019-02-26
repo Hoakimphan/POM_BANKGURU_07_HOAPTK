@@ -31,6 +31,10 @@ public class PageFactoryManager {
 	{
 		return new FundTransferPageObject(driver);
 	}
+//	public static NewCustomerPageObject getNewCustomerPage(WebDriver driver) {
+//		// TODO Auto-generated method stub
+//		return new NewCustomerPageObject(driver);
+//	}
 	public static NewCustomerPageObject getNewCustomerPage(WebDriver driver) {
 		// TODO Auto-generated method stub
 		return new NewCustomerPageObject(driver);
