@@ -27,7 +27,7 @@ import pageObjects.NewCustomerPageObject;
 import pageObjects.PageFactoryManager;
 import pageObjects.RegisterPageObject;
 
-public class RegisterAndLoginToSystem_Level_5_WebDriverLifeCycle extends AbstractTest {
+public class RegisterAndLoginToSystem_Level_6_DynamicLocator_RestParameter extends AbstractTest {
 	private WebDriver driver;
 	private String email, userID, password, loginUrl ;
 	private LoginPageObject loginPage;
@@ -73,23 +73,36 @@ public class RegisterAndLoginToSystem_Level_5_WebDriverLifeCycle extends Abstrac
 	public void TC_03_Account_03_WebDriverLifeCycle()
 	{
 		//home Page -> new customer
-		newCustomerPage = homePage.openNewCustomerPage(driver);
+		//so luong page it (vai chuc page)
+		newCustomerPage = (NewCustomerPageObject) homePage.openDynamicPage(driver, "New Customer");
 		Assert.assertTrue(newCustomerPage.isNewCustomerPageDisplayed());
+		
 		//new customer -> new account
-		newAccountPage = newCustomerPage.openNewAccountPage(driver);
+		
+		newAccountPage = (NewAccountPageObject) newCustomerPage.openDynamicPage(driver, "New Account");
 		Assert.assertTrue(newAccountPage.isNewAccountPageDisplayed());
+		
 		//new account -> deposit
-		depositPage = newAccountPage.openDepositPage(driver);
+		
+		depositPage = (DepositPageObject) newAccountPage.openDynamicPage(driver, "Deposit");
 		Assert.assertTrue(depositPage.isDepositPageDisplayed(driver));
 		
 //		fundTransferPage = depositPage.openFundTransferPage();
 //		Assert.assertTrue(fundTransferPage.isFundTransferPageDisplayed());
+		
 		//deposit-> home Page
-		homePage = depositPage.openHomePage(driver);
+		
+		homePage = (HomePageObject) depositPage.openDynamicPage(driver, "Manager");
 		Assert.assertTrue(homePage.isHomePageDisplayed());
-		//homePage -< new account Page
-		newAccountPage = homePage.openNewAccountPage(driver);
+		//homePage -> new account Page
+		
+		newAccountPage = (NewAccountPageObject) homePage.openDynamicPage(driver, "New Account");
 		Assert.assertTrue(newAccountPage.isNewAccountPageDisplayed());
+		////100->1000 page
+		//New Account->New Customer
+		newAccountPage.openMoreDynamicPage(driver, "New Customer");
+		newCustomerPage = PageFactoryManager.getNewCustomerPage(driver);
+		Assert.assertTrue(newCustomerPage.isNewCustomerPageDisplayed());
 	}
 	@AfterTest
 	public void quit()

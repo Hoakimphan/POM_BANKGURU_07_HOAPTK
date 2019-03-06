@@ -13,6 +13,17 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import pageObjects.DepositPageObject;
+import pageObjects.HomePageObject;
+import pageObjects.NewAccountPageObject;
+import pageObjects.NewCustomerPageObject;
+import pageObjects.PageFactoryManager;
+import pageUIs.AbstractPageUI;
+import pageUIs.DepositPageUI;
+import pageUIs.HomePageUI;
+import pageUIs.NewAccountPageUI;
+import pageUIs.NewCustomerPageUI;
+
 public class AbstractPage {
 	/*WEB BROWSER*/
 	public void openUrl(WebDriver driver, String url)
@@ -62,6 +73,12 @@ public class AbstractPage {
 	/*WEB ELEMENT*/
 	public void clickToElement(WebDriver driver, String locator)
 	{
+		WebElement element = driver.findElement(By.xpath(locator));
+		element.click();
+	}
+	public void clickToElement(WebDriver driver, String locator, String...dynamicValue)
+	{
+		locator = String.format(locator, (Object[]) dynamicValue);
 		WebElement element = driver.findElement(By.xpath(locator));
 		element.click();
 	}
@@ -142,6 +159,12 @@ public class AbstractPage {
 	}
 	public boolean isControlDisplayed(WebDriver driver, String locator)// dung kieu boolean vi ham isDisplayed() la kieu boolean
 	{
+		WebElement element = driver.findElement(By.xpath(locator));
+		return element.isDisplayed();
+	}
+	public boolean isControlDisplayed(WebDriver driver, String locator, String...dynamicValue)// dung kieu boolean vi ham isDisplayed() la kieu boolean
+	{
+		locator = String.format(locator, (Object[]) dynamicValue);
 		WebElement element = driver.findElement(By.xpath(locator));
 		return element.isDisplayed();
 	}
@@ -294,6 +317,20 @@ public class AbstractPage {
             return null;
 		}
 	}
+	public Object clickToElementByJS(WebDriver driver, String locator, String...dynamicValue)
+	{
+		JavascriptExecutor javaExecutor = (JavascriptExecutor) driver;
+		locator = String.format(locator, (Object[]) dynamicValue);
+		WebElement element = driver.findElement(By.xpath(locator));
+		try
+		{
+			return javaExecutor.executeScript("arguments[0].click();", element);
+		}
+		catch (Exception e) {
+			e.getMessage();
+            return null;
+		}
+	}
 	public boolean isImageDisplayed(WebDriver driver, String locator) {
 		  try {
 		   WebElement element = driver.findElement(By.xpath(locator));
@@ -307,6 +344,13 @@ public class AbstractPage {
 	/*WAIT*/
 	public void waitToElementVisible(WebDriver driver, String locator)
 	{
+		By byLocator = By.xpath(locator);
+		WebDriverWait waitExplicit = new WebDriverWait(driver, 30);
+		waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(byLocator));	
+	}
+	public void waitToElementVisible(WebDriver driver, String locator, String...dynamicValue)
+	{
+		locator = String.format(locator, (Object[]) dynamicValue);
 		By byLocator = By.xpath(locator);
 		WebDriverWait waitExplicit = new WebDriverWait(driver, 30);
 		waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(byLocator));	
@@ -335,5 +379,50 @@ public class AbstractPage {
 		WebDriverWait waitExplicit = new WebDriverWait(driver, 30);
 		waitExplicit.until(ExpectedConditions.elementToBeClickable(byLocator));
 	}
+	//dynamic Page
+	public AbstractPage openDynamicPage(WebDriver driver, String pageName)
+	{
+		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
+		clickToElement(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
+		switch(pageName)
+		{
+			case "New Customer":
+				return PageFactoryManager.getNewCustomerPage(driver);
+			case "New Account":
+				return PageFactoryManager.getNewAccountPage(driver);
+			case "Deposit":
+				return PageFactoryManager.getDepositPage(driver);
+			default:
+				return PageFactoryManager.getHomePage(driver);
+		}
+	}
+	//100->1000 page
+	public void openMoreDynamicPage(WebDriver driver, String pageName)
+	{
+		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
+		clickToElement(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
+	}
 	
+	public NewCustomerPageObject openNewCustomerPage(WebDriver driver) {
+		waitToElementVisible(driver, AbstractPageUI.NEW_CUSTOMER_LINK);
+		clickToElement(driver, AbstractPageUI.NEW_CUSTOMER_LINK);
+		return PageFactoryManager.getNewCustomerPage(driver);
+		
+	}
+	public NewAccountPageObject openNewAccountPage(WebDriver driver) {
+		waitToElementVisible(driver, AbstractPageUI.NEW_ACCOUNT_LINK);
+		clickToElement(driver, AbstractPageUI.NEW_ACCOUNT_LINK);
+		return PageFactoryManager.getNewAccountPage(driver);
+	}
+	public DepositPageObject openDepositPage(WebDriver driver) {
+		waitToElementVisible(driver, AbstractPageUI.DEPOSIT_LINK);
+		clickToElement(driver, AbstractPageUI.DEPOSIT_LINK);
+		return PageFactoryManager.getDepositPage(driver);
+	}
+	public HomePageObject openHomePage(WebDriver driver) {
+		waitToElementVisible(driver, AbstractPageUI.HOME_PAGE_LINK);
+		clickToElement(driver, AbstractPageUI.HOME_PAGE_LINK);
+		return PageFactoryManager.getHomePage(driver);	
+	}
+
 }

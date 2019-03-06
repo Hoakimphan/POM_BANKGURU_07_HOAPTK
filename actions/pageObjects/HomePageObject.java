@@ -15,13 +15,4 @@ public class HomePageObject extends AbstractPage{
 		waitToElementVisible(driver, HomePageUI.HOMEPAGE_WELCOME_MESSAGE);
 		return isControlDisplayed(driver, HomePageUI.HOMEPAGE_WELCOME_MESSAGE);
 	}
-	public NewCustomerPageObject openNewCustomerPage() {
-		waitToElementVisible(driver, HomePageUI.NEW_CUSTOMER_LINK);
-		clickToElement(driver, HomePageUI.NEW_CUSTOMER_LINK);
-		return PageFactoryManager.getNewCustomerPage(driver);
-		
-	}
-	
-	
-
 }
