@@ -1,7 +1,9 @@
 package commons;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -25,6 +27,8 @@ import pageUIs.NewAccountPageUI;
 import pageUIs.NewCustomerPageUI;
 
 public class AbstractPage {
+	int shortTimeout = 5;
+	int longTimeout = 30;
 	/*WEB BROWSER*/
 	public void openUrl(WebDriver driver, String url)
 	{
@@ -167,6 +171,53 @@ public class AbstractPage {
 		locator = String.format(locator, (Object[]) dynamicValue);
 		WebElement element = driver.findElement(By.xpath(locator));
 		return element.isDisplayed();
+	}
+	public boolean isControlUnDisplayed(WebDriver driver, String locator)
+	{
+		Date date= new Date();
+		System.out.println("start time = " + date.toString());
+		overrideGlobalTimeout(driver, shortTimeout);
+		List<WebElement> elements = driver.findElements(By.xpath(locator));
+		if(elements.size() == 0)
+		{
+			date = new Date();
+			System.out.println("End time = " + date.toString());
+			overrideGlobalTimeout(driver, longTimeout);
+			return true;
+		}
+		else
+		{
+			date = new Date();
+			System.out.println("End time = " + date.toString());
+			overrideGlobalTimeout(driver, longTimeout);
+			return false;
+		}
+	}
+	public boolean isControlUnDisplayed(WebDriver driver, String locator, String...dynamicValue)
+	{
+		Date date= new Date();
+		System.out.println("start time = " + date.toString());
+		overrideGlobalTimeout(driver, shortTimeout);
+		locator = String.format(locator, (Object[]) dynamicValue);
+		List<WebElement> elements = driver.findElements(By.xpath(locator));
+		if(elements.size() == 0)
+		{
+			date = new Date();
+			System.out.println("End time = " + date.toString());
+			overrideGlobalTimeout(driver, longTimeout);
+			return true;
+		}
+		else
+		{
+			date = new Date();
+			System.out.println("End time = " + date.toString());
+			overrideGlobalTimeout(driver, longTimeout);
+			return false;
+		}
+	}
+	public void overrideGlobalTimeout(WebDriver driver, int timeOut)
+	{
+		driver.manage().timeouts().implicitlyWait(timeOut, TimeUnit.SECONDS);
 	}
 	public boolean isSelected(WebDriver driver, String locator)// dung kieu boolean vi ham isSelected() la kieu boolean
 	{
