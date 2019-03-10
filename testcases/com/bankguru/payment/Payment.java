@@ -1,24 +1,15 @@
-package com.bankguru.account;
+package com.bankguru.payment;
 
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
-
-import org.junit.AfterClass;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import commons.AbstractPage;
 import commons.AbstractTest;
 import pageObjects.DepositPageObject;
+import pageObjects.EditCustomerPageObject;
 import pageObjects.FundTransferPageObject;
 import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
@@ -27,9 +18,9 @@ import pageObjects.NewCustomerPageObject;
 import pageObjects.PageFactoryManager;
 import pageObjects.RegisterPageObject;
 
-public class RegisterAndLoginToSystem_Level_7_CheckUnDisplayed_OverrideTimeout extends AbstractTest {
+public class Payment extends AbstractTest{
 	private WebDriver driver;
-	private String email, userID, password, loginUrl ;
+	private String email, userID, password, loginUrl, customerID ;
 	private LoginPageObject loginPage;
 	private RegisterPageObject registerPage;
 	private HomePageObject homePage;
@@ -37,6 +28,7 @@ public class RegisterAndLoginToSystem_Level_7_CheckUnDisplayed_OverrideTimeout e
 	private NewAccountPageObject newAccountPage;
 	private DepositPageObject depositPage;
 	private FundTransferPageObject fundTransferPage;
+	private EditCustomerPageObject editCustomerPage;
 	@Parameters("browser")
 	@BeforeTest
 	public void beforeClass(String browserName)
@@ -49,8 +41,7 @@ public class RegisterAndLoginToSystem_Level_7_CheckUnDisplayed_OverrideTimeout e
 	public void TC_01_Register()
 	{
 		loginUrl = loginPage.getLoginPageUrl();
-		registerPage = loginPage.clickToHereLink();//tạo sự kết nối giữa register page và login page
-			
+		registerPage = loginPage.clickToHereLink();//tạo sự kết nối giữa register page và login page			
 		registerPage.inputToEmailIDTextbox(email);
 		registerPage.clickToSubmitButton();
 		userID = registerPage.getUserIDText();
@@ -69,20 +60,16 @@ public class RegisterAndLoginToSystem_Level_7_CheckUnDisplayed_OverrideTimeout e
 		homePage = new HomePageObject(driver);
 		Assert.assertTrue(homePage.isHomePageDisplayed());
 	}
-	@Test
-	public void TC_03_Account_03_WebDriverLifeCycle()
-	{
-		//home Page -> new customer
-		//so luong page it (vai chuc page)
-		newCustomerPage = homePage.openNewCustomerPage(driver);
-		Assert.assertTrue(newCustomerPage.isNewCustomerPageDisplayed());
-		//có trong DOM, k visible
-		Assert.assertTrue(newCustomerPage.isAddCustomerFormUnDisplayed());
-		//verify homePage ở newCustomerPage (k có trong DOM)
-		Assert.assertTrue(newCustomerPage.isHomePageUnDisplayed());
-		
-		//new customer -> new account
-		
+//	@Test
+//	public void TC_03_Account_03_WebDriverLifeCycle()
+//	{
+//		//home Page -> new customer
+//		//so luong page it (vai chuc page)
+//		newCustomerPage = (NewCustomerPageObject) homePage.openDynamicPage(driver, "New Customer");
+//		Assert.assertTrue(newCustomerPage.isNewCustomerPageDisplayed());
+//		
+//		//new customer -> new account
+//		
 //		newAccountPage = (NewAccountPageObject) newCustomerPage.openDynamicPage(driver, "New Account");
 //		Assert.assertTrue(newAccountPage.isNewAccountPageDisplayed());
 //		
@@ -107,11 +94,34 @@ public class RegisterAndLoginToSystem_Level_7_CheckUnDisplayed_OverrideTimeout e
 //		newAccountPage.openMoreDynamicPage(driver, "New Customer");
 //		newCustomerPage = PageFactoryManager.getNewCustomerPage(driver);
 //		Assert.assertTrue(newCustomerPage.isNewCustomerPageDisplayed());
-	}
-	@AfterTest
-	public void quit()
+//	}
+	@Test
+	public void TC_03_CreateNewCustomer()
 	{
-		driver.close();
+		newCustomerPage = (NewCustomerPageObject) homePage.openDynamicPage(driver, "New Customer");
+		newCustomerPage.inputCustomerName();
+		newCustomerPage.inputDateOfBirth();
+		newCustomerPage.inputAddress();
+		newCustomerPage.inputCity();
+		newCustomerPage.inputState();
+		newCustomerPage.inputPin();
+		newCustomerPage.inputMobileNumber();
+		newCustomerPage.inputEmail(email);
+		newCustomerPage.inputPassword();
+		newCustomerPage.clickToSubmitBtn();
+		Assert.assertTrue(newCustomerPage.isMessageInNewCustomerPageDisplayed());
+		customerID = newCustomerPage.getCustomerIDText();
 	}
+	@Test
+	public void TC_04_EditCustomer()
+	{
+		newCustomerPage = (NewCustomerPageObject) homePage.openDynamicPage(driver, "Edit Customer");
+		editCustomerPage.inputCutomerID(customerID);
+	}
+//	@AfterTest
+//	public void quit()
+//	{
+//		driver.close();
+//	}
 
 }

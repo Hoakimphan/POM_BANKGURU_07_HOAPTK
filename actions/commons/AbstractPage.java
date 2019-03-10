@@ -92,6 +92,13 @@ public class AbstractPage {
 		element.clear();
 		element.sendKeys(value);
 	}
+	public void sendkeyToElement(WebDriver driver, String value, String locator, String...dynamicValue)
+	{
+		locator = String.format(locator, (Object[]) dynamicValue);
+		WebElement element = driver.findElement(By.xpath(locator));
+		element.clear();
+		element.sendKeys(value);
+	}
 	public void selectItemInHtmlDropDown(WebDriver driver, String locator, String value)
 	{
 		WebElement element = driver.findElement(By.xpath(locator));
@@ -178,19 +185,19 @@ public class AbstractPage {
 		System.out.println("start time = " + date.toString());
 		overrideGlobalTimeout(driver, shortTimeout);
 		List<WebElement> elements = driver.findElements(By.xpath(locator));
-		if(elements.size() == 0)
+		if(elements.size() > 0 && elements.get(0).isDisplayed())
 		{
 			date = new Date();
 			System.out.println("End time = " + date.toString());
 			overrideGlobalTimeout(driver, longTimeout);
-			return true;
+			return false;
 		}
 		else
 		{
 			date = new Date();
 			System.out.println("End time = " + date.toString());
 			overrideGlobalTimeout(driver, longTimeout);
-			return false;
+			return true;
 		}
 	}
 	public boolean isControlUnDisplayed(WebDriver driver, String locator, String...dynamicValue)
@@ -200,19 +207,19 @@ public class AbstractPage {
 		overrideGlobalTimeout(driver, shortTimeout);
 		locator = String.format(locator, (Object[]) dynamicValue);
 		List<WebElement> elements = driver.findElements(By.xpath(locator));
-		if(elements.size() == 0)
+		if(elements.size() > 0 && elements.get(0).isDisplayed())
 		{
 			date = new Date();
 			System.out.println("End time = " + date.toString());
 			overrideGlobalTimeout(driver, longTimeout);
-			return true;
+			return false;
 		}
 		else
 		{
 			date = new Date();
 			System.out.println("End time = " + date.toString());
 			overrideGlobalTimeout(driver, longTimeout);
-			return false;
+			return true;
 		}
 	}
 	public void overrideGlobalTimeout(WebDriver driver, int timeOut)
@@ -475,5 +482,6 @@ public class AbstractPage {
 		clickToElement(driver, AbstractPageUI.HOME_PAGE_LINK);
 		return PageFactoryManager.getHomePage(driver);	
 	}
-
+	
+	
 }

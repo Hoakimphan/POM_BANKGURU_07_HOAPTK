@@ -39,4 +39,8 @@ public class PageFactoryManager {
 		// TODO Auto-generated method stub
 		return new NewCustomerPageObject(driver);
 	}
+	public static EditCustomerPageObject getEditCustomerPage(WebDriver driver)
+	{
+		return new EditCustomerPageObject(driver);
+	}
 }
