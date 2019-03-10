@@ -12,18 +12,18 @@ import org.testng.annotations.Test;
 
 public class Account_01_RegisterAndLoginToSystem_Level_1_Step_By_Step {
 	WebDriver driver;
-	private String email, userID, password, loginUrl ;
+	private String email, userID, password, loginUrl;
+
 	@BeforeTest
-	public void setUp()
-	{
+	public void setUp() {
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		email = "sele" + randomEmail() + "@gmail.com";
 	}
+
 	@Test
-	public void TC_01_Register()
-	{
+	public void TC_01_Register() {
 		driver.get("http://demo.guru99.com/v4/");
 		loginUrl = driver.getCurrentUrl();
 		driver.findElement(By.xpath("//a[text()='here']")).click();
@@ -33,16 +33,18 @@ public class Account_01_RegisterAndLoginToSystem_Level_1_Step_By_Step {
 		userID = driver.findElement(By.xpath("//td[text()='User ID :']//following-sibling::td")).getText();
 		password = driver.findElement(By.xpath("//td[text()='Password :']//following-sibling::td")).getText();
 	}
+
 	@Test
-	public void TC_02_LoginWithInformationInAbove()
-	{
+	public void TC_02_LoginWithInformationInAbove() {
 		driver.get(loginUrl);
 		driver.findElement(By.xpath("//input[@name='uid']")).sendKeys(userID);
 		driver.findElement(By.xpath("//input[@name='password']")).sendKeys(password);
 		driver.findElement(By.xpath("//input[@name='btnLogin']")).click();
-		Assert.assertTrue(driver.findElement(By.xpath("//marquee[text()=\"Welcome To Manager's Page of Guru99 Bank\"]")).isDisplayed());
-		Assert.assertTrue(driver.findElement(By.xpath("//td[text()='Manger Id : "+userID+"']")).isDisplayed());
+		Assert.assertTrue(driver.findElement(By.xpath("//marquee[text()=\"Welcome To Manager's Page of Guru99 Bank\"]"))
+				.isDisplayed());
+		Assert.assertTrue(driver.findElement(By.xpath("//td[text()='Manger Id : " + userID + "']")).isDisplayed());
 	}
+
 	public int randomEmail() {
 		Random random = new Random();
 		int number = random.nextInt(99999);

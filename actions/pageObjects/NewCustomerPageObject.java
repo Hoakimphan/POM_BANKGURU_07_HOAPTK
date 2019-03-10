@@ -33,56 +33,55 @@ public class NewCustomerPageObject extends AbstractPage{
 		waitToElementInvisible(driver, NewCustomerPageUI.CUSTOMER_FORM);
 		return isControlUnDisplayed(driver, NewCustomerPageUI.CUSTOMER_FORM);
 	}
-	//create a new customer
-	public void inputCustomerName()
+	public void inputCustomerName(String newName)
 	{
-		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_ELEMENTS_NEW_CUSTOMER_PAGE, "name");
-		sendkeyToElement(driver, "AUTOMATION TESTING", AbstractPageUI.DYNAMIC_ELEMENTS_NEW_CUSTOMER_PAGE, "name");
+		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_ELEMENTS_TEXTBOX, "name");
+		sendkeyToElement(driver, newName, AbstractPageUI.DYNAMIC_ELEMENTS_TEXTBOX, "name");
 	}
-	public void inputDateOfBirth()
+	public void inputDateOfBirth(String newDob)
 	{
-		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_ELEMENTS_NEW_CUSTOMER_PAGE, "dob");
-		sendkeyToElement(driver, "1989-01-01", AbstractPageUI.DYNAMIC_ELEMENTS_NEW_CUSTOMER_PAGE, "dob");
+		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_ELEMENTS_TEXTBOX, "dob");
+		sendkeyToElement(driver, newDob, AbstractPageUI.DYNAMIC_ELEMENTS_TEXTBOX, "dob");
 	}
-	public void inputAddress()
+	public void inputAddress(String newAddress)
 	{
 		waitToElementVisible(driver, NewCustomerPageUI.ADDRESS_TEXTAREA);
-		sendkeyToElement(driver, NewCustomerPageUI.ADDRESS_TEXTAREA, "PO Box 911 8311 Duis Avenue");
+		sendkeyToElement(driver, NewCustomerPageUI.ADDRESS_TEXTAREA, newAddress);
 	}
-	public void inputCity()
+	public void inputCity(String newCity)
 	{
-		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_ELEMENTS_NEW_CUSTOMER_PAGE, "city");
-		sendkeyToElement(driver, "Tampa", AbstractPageUI.DYNAMIC_ELEMENTS_NEW_CUSTOMER_PAGE,  "city");
+		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_ELEMENTS_TEXTBOX, "city");
+		sendkeyToElement(driver, newCity, AbstractPageUI.DYNAMIC_ELEMENTS_TEXTBOX,  "city");
 	}
-	public void inputState()
+	public void inputState(String newState)
 	{
-		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_ELEMENTS_NEW_CUSTOMER_PAGE, "state");
-		sendkeyToElement(driver, "FL", AbstractPageUI.DYNAMIC_ELEMENTS_NEW_CUSTOMER_PAGE,  "state");
+		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_ELEMENTS_TEXTBOX, "state");
+		sendkeyToElement(driver, newState, AbstractPageUI.DYNAMIC_ELEMENTS_TEXTBOX,  "state");
 	}
-	public void inputPin()
+	public void inputPin(String newPin)
 	{
-		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_ELEMENTS_NEW_CUSTOMER_PAGE, "pinno");
-		sendkeyToElement(driver, "466250", AbstractPageUI.DYNAMIC_ELEMENTS_NEW_CUSTOMER_PAGE,  "pinno");
+		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_ELEMENTS_TEXTBOX, "pinno");
+		sendkeyToElement(driver, newPin, AbstractPageUI.DYNAMIC_ELEMENTS_TEXTBOX,  "pinno");
 	}
-	public void inputMobileNumber()
+	public void inputMobileNumber(String newPhone)
 	{
-		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_ELEMENTS_NEW_CUSTOMER_PAGE, "telephoneno");
-		sendkeyToElement(driver, "4555442276", AbstractPageUI.DYNAMIC_ELEMENTS_NEW_CUSTOMER_PAGE,  "telephoneno");
+		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_ELEMENTS_TEXTBOX, "telephoneno");
+		sendkeyToElement(driver, newPhone, AbstractPageUI.DYNAMIC_ELEMENTS_TEXTBOX,  "telephoneno");
 	}
-	public void inputEmail(String email)
+	public void inputEmail(String newEmail)
 	{
-		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_ELEMENTS_NEW_CUSTOMER_PAGE, "emailid");
-		sendkeyToElement(driver, email, AbstractPageUI.DYNAMIC_ELEMENTS_NEW_CUSTOMER_PAGE,  "emailid");
+		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_ELEMENTS_TEXTBOX, "emailid");
+		sendkeyToElement(driver, newEmail, AbstractPageUI.DYNAMIC_ELEMENTS_TEXTBOX,  "emailid");
 	}
-	public void inputPassword()
+	public void inputPassword(String newPassword)
 	{
-		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_ELEMENTS_NEW_CUSTOMER_PAGE, "password");
-		sendkeyToElement(driver, "automation", AbstractPageUI.DYNAMIC_ELEMENTS_NEW_CUSTOMER_PAGE,  "password");
+		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_ELEMENTS_TEXTBOX, "password");
+		sendkeyToElement(driver, newPassword, AbstractPageUI.DYNAMIC_ELEMENTS_TEXTBOX,  "password");
 	}
 	public void clickToSubmitBtn()
 	{
-		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_ELEMENTS_NEW_CUSTOMER_PAGE, "sub");
-		clickToElement(driver, AbstractPageUI.DYNAMIC_ELEMENTS_NEW_CUSTOMER_PAGE, "sub");
+		waitToElementVisible(driver, AbstractPageUI.DYNAMIC_ELEMENTS_BUTTON, "sub");
+		clickToElement(driver, AbstractPageUI.DYNAMIC_ELEMENTS_BUTTON, "sub");
 	}
 	public boolean isMessageInNewCustomerPageDisplayed()
 	{

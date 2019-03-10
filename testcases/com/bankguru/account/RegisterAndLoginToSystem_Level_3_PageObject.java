@@ -22,55 +22,51 @@ import pageObjects.RegisterPageObject;
 
 public class RegisterAndLoginToSystem_Level_3_PageObject extends AbstractTest {
 	private WebDriver driver;
-	private String email, userID, password, loginUrl ;
+	private String email, userID, password, loginUrl;
 	private LoginPageObject loginPage;
 	private RegisterPageObject registerPage;
 	private HomePageObject homePage;
+
 	@Parameters("browser")
 	@BeforeTest
-	public void beforeClass(String browserName)
-	{
-		driver = openMultiBrowser(browserName);//map với driver initialize bên AbstractTest
-		//System.out.println("driver in RegisterAndLoginToSystem_Level_3_PageObject", driver);
+	public void beforeClass(String browserName) {
+		driver = openMultiBrowser(browserName);
 		email = "sele" + randomEmail() + "@gmail.com";
 		loginPage = new LoginPageObject(driver);
 	}
+
 	@Test
-	public void TC_01_Register()
-	{
+	public void TC_01_Register() {
 		loginUrl = loginPage.getLoginPageUrl();
 		loginPage.clickToHereLink();
-		//click Here Link vao register page
 		registerPage = new RegisterPageObject(driver);
-		
+
 		registerPage.inputToEmailIDTextbox(email);
 		registerPage.clickToSubmitButton();
 		userID = registerPage.getUserIDText();
 		password = registerPage.getPasswordIDText();
 	}
+
 	@Test
-	public void TC_02_LoginWithInformationInAbove()
-	{
+	public void TC_02_LoginWithInformationInAbove() {
 		registerPage.openLoginPageURL(loginUrl);
-		//open url -> vao Login lai
 		loginPage = new LoginPageObject(driver);
 		loginPage.inputToUserIDTextbox(userID);
 		loginPage.inputToPasswordTextbox(password);
 		loginPage.clickToLoginButton();
-		//click to login -> vao home page
 		homePage = new HomePageObject(driver);
-		//Assert.assertTrue(homePage.isHomePageDisplayed());
 		Assert.assertTrue(homePage.isHomePageDisplayed());
 	}
+
 	public int randomEmail() {
 		Random random = new Random();
 		int number = random.nextInt(99999);
 		System.out.println("Random number: =" + number);
 		return number;
 	}
+
 	@AfterClass
-	public void quit()
-	{
+	public void quit() {
 		driver.close();
 	}
 

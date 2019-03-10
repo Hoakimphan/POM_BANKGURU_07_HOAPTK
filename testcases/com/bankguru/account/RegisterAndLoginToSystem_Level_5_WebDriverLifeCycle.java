@@ -29,7 +29,7 @@ import pageObjects.RegisterPageObject;
 
 public class RegisterAndLoginToSystem_Level_5_WebDriverLifeCycle extends AbstractTest {
 	private WebDriver driver;
-	private String email, userID, password, loginUrl ;
+	private String email, userID, password, loginUrl;
 	private LoginPageObject loginPage;
 	private RegisterPageObject registerPage;
 	private HomePageObject homePage;
@@ -37,63 +37,53 @@ public class RegisterAndLoginToSystem_Level_5_WebDriverLifeCycle extends Abstrac
 	private NewAccountPageObject newAccountPage;
 	private DepositPageObject depositPage;
 	private FundTransferPageObject fundTransferPage;
+
 	@Parameters("browser")
 	@BeforeTest
-	public void beforeClass(String browserName)
-	{
-		driver = openMultiBrowser(browserName);//map với driver initialize bên AbstractTest
+	public void beforeClass(String browserName) {
+		driver = openMultiBrowser(browserName);
 		email = "sele" + randomEmail() + "@gmail.com";
 		loginPage = PageFactoryManager.getLoginPage(driver);
 	}
+
 	@Test
-	public void TC_01_Register()
-	{
+	public void TC_01_Register() {
 		loginUrl = loginPage.getLoginPageUrl();
-		registerPage = loginPage.clickToHereLink();//tạo sự kết nối giữa register page và login page
-			
+		registerPage = loginPage.clickToHereLink();
+
 		registerPage.inputToEmailIDTextbox(email);
 		registerPage.clickToSubmitButton();
 		userID = registerPage.getUserIDText();
 		password = registerPage.getPasswordIDText();
 	}
+
 	@Test
-	public void TC_02_LoginWithInformationInAbove()
-	{
+	public void TC_02_LoginWithInformationInAbove() {
 		registerPage.openLoginPageURL(loginUrl);
-		//open url -> vao Login lai
 		loginPage = new LoginPageObject(driver);
 		loginPage.inputToUserIDTextbox(userID);
 		loginPage.inputToPasswordTextbox(password);
 		homePage = loginPage.clickToLoginButton();
-		//click to login -> vao home page
 		homePage = new HomePageObject(driver);
 		Assert.assertTrue(homePage.isHomePageDisplayed());
 	}
+
 	@Test
-	public void TC_03_Account_03_WebDriverLifeCycle()
-	{
-		//home Page -> new customer
+	public void TC_03_Account_03_WebDriverLifeCycle() {
 		newCustomerPage = homePage.openNewCustomerPage(driver);
 		Assert.assertTrue(newCustomerPage.isNewCustomerPageDisplayed());
-		//new customer -> new account
 		newAccountPage = newCustomerPage.openNewAccountPage(driver);
 		Assert.assertTrue(newAccountPage.isNewAccountPageDisplayed());
-		//new account -> deposit
 		depositPage = newAccountPage.openDepositPage(driver);
 		Assert.assertTrue(depositPage.isDepositPageDisplayed(driver));
-		
-//		fundTransferPage = depositPage.openFundTransferPage();
-//		Assert.assertTrue(fundTransferPage.isFundTransferPageDisplayed());
-		//deposit-> home Page
 		homePage = depositPage.openHomePage(driver);
 		Assert.assertTrue(homePage.isHomePageDisplayed());
-		//homePage -< new account Page
 		newAccountPage = homePage.openNewAccountPage(driver);
 		Assert.assertTrue(newAccountPage.isNewAccountPageDisplayed());
 	}
+
 	@AfterTest
-	public void quit()
-	{
+	public void quit() {
 		driver.close();
 	}
 

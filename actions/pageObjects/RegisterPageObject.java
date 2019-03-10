@@ -13,7 +13,6 @@ public class RegisterPageObject extends AbstractPage{
 	}
 	public void inputToEmailIDTextbox(String email)
 	{
-		//System.out.println(driver);
 		waitToElementVisible(driver, RegisterPageUI.EMAIL_ID_TEXTBOX);
 		sendkeyToElement(driver, RegisterPageUI.EMAIL_ID_TEXTBOX, email);
 	}
@@ -36,5 +35,4 @@ public class RegisterPageObject extends AbstractPage{
 	{
 		openUrl(driver, loginPageURL);
 	}
-
 }
