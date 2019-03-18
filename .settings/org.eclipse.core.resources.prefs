@@ -1,9 +1,11 @@
 eclipse.preferences.version=1
 encoding//actions/commons/AbstractTest.java=UTF-8
+encoding//testcases/com/bankguru/account/RegisterAndLoginToSystem_Global_Register_Login.java=UTF-8
 encoding//testcases/com/bankguru/account/RegisterAndLoginToSystem_Level_2_Apply_AbstractPage_MultiBrowser.java=UTF-8
 encoding//testcases/com/bankguru/account/RegisterAndLoginToSystem_Level_3_PageObject.java=UTF-8
 encoding//testcases/com/bankguru/account/RegisterAndLoginToSystem_Level_4_PageFactory.java=UTF-8
 encoding//testcases/com/bankguru/account/RegisterAndLoginToSystem_Level_5_WebDriverLifeCycle.java=UTF-8
 encoding//testcases/com/bankguru/account/RegisterAndLoginToSystem_Level_6_DynamicLocator_RestParameter.java=UTF-8
 encoding//testcases/com/bankguru/account/RegisterAndLoginToSystem_Level_7_CheckUnDisplayed_OverrideTimeout.java=UTF-8
+encoding//testcases/com/bankguru/account/RegisterAndLoginToSystem_Level_8_Assert_Verify_Log_Report.java=UTF-8
 encoding//testcases/com/bankguru/payment/Payment.java=UTF-8

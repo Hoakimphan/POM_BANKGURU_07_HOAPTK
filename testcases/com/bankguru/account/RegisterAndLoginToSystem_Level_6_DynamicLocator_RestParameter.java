@@ -29,61 +29,60 @@ import pageObjects.RegisterPageObject;
 
 public class RegisterAndLoginToSystem_Level_6_DynamicLocator_RestParameter extends AbstractTest {
 	private WebDriver driver;
-	private String email, userID, password, loginUrl;
+	
 	private LoginPageObject loginPage;
-	private RegisterPageObject registerPage;
-	private HomePageObject homePage;
-	private NewCustomerPageObject newCustomerPage;
-	private NewAccountPageObject newAccountPage;
-	private DepositPageObject depositPage;
-	private FundTransferPageObject fundTransferPage;
 
+	private HomePageObject homePage;
 	@Parameters("browser")
 	@BeforeTest
 	public void beforeClass(String browserName) {
 		driver = openMultiBrowser(browserName);
-		email = "sele" + randomEmail() + "@gmail.com";
 		loginPage = PageFactoryManager.getLoginPage(driver);
-	}
-
-	@Test
-	public void TC_01_Register() {
-		loginUrl = loginPage.getLoginPageUrl();
-		registerPage = loginPage.clickToHereLink();
-
-		registerPage.inputToEmailIDTextbox(email);
-		registerPage.clickToSubmitButton();
-		userID = registerPage.getUserIDText();
-		password = registerPage.getPasswordIDText();
-	}
-
-	@Test
-	public void TC_02_LoginWithInformationInAbove() {
-		registerPage.openLoginPageURL(loginUrl);
-		loginPage = new LoginPageObject(driver);
-		loginPage.inputToUserIDTextbox(userID);
-		loginPage.inputToPasswordTextbox(password);
+		loginPage.inputToUserIDTextbox(RegisterAndLoginToSystem_Global_Register_Login.USERID);
+		loginPage.inputToPasswordTextbox(RegisterAndLoginToSystem_Global_Register_Login.PASSWORD);
 		homePage = loginPage.clickToLoginButton();
 		homePage = new HomePageObject(driver);
 		Assert.assertTrue(homePage.isHomePageDisplayed());
 	}
 
-	@Test
-	public void TC_03_Account_03_WebDriverLifeCycle() {
-		newCustomerPage = (NewCustomerPageObject) homePage.openDynamicPage(driver, "New Customer");
-		Assert.assertTrue(newCustomerPage.isNewCustomerPageDisplayed());
-		newAccountPage = (NewAccountPageObject) newCustomerPage.openDynamicPage(driver, "New Account");
-		Assert.assertTrue(newAccountPage.isNewAccountPageDisplayed());
-		depositPage = (DepositPageObject) newAccountPage.openDynamicPage(driver, "Deposit");
-		Assert.assertTrue(depositPage.isDepositPageDisplayed(driver));
-		homePage = (HomePageObject) depositPage.openDynamicPage(driver, "Manager");
-		Assert.assertTrue(homePage.isHomePageDisplayed());
-		newAccountPage = (NewAccountPageObject) homePage.openDynamicPage(driver, "New Account");
-		Assert.assertTrue(newAccountPage.isNewAccountPageDisplayed());
-		newAccountPage.openMoreDynamicPage(driver, "New Customer");
-		newCustomerPage = PageFactoryManager.getNewCustomerPage(driver);
-		Assert.assertTrue(newCustomerPage.isNewCustomerPageDisplayed());
-	}
+//	@Test
+//	public void TC_01_Register() {
+//		loginUrl = loginPage.getLoginPageUrl();
+//		registerPage = loginPage.clickToHereLink();
+//
+//		registerPage.inputToEmailIDTextbox(email);
+//		registerPage.clickToSubmitButton();
+//		userID = registerPage.getUserIDText();
+//		password = registerPage.getPasswordIDText();
+//	}
+
+//	@Test
+//	public void TC_02_LoginWithInformationInAbove() {
+//		
+//		loginPage = new LoginPageObject(driver);
+//		loginPage.inputToUserIDTextbox(RegisterAndLoginToSystem_Global_Register_Login.USERID);
+//		loginPage.inputToPasswordTextbox(RegisterAndLoginToSystem_Global_Register_Login.PASSWORD);
+//		homePage = loginPage.clickToLoginButton();
+//		homePage = new HomePageObject(driver);
+//		Assert.assertTrue(homePage.isHomePageDisplayed());
+//	}
+
+	
+//	public void TC_03_Account_03_WebDriverLifeCycle() {
+//		newCustomerPage = (NewCustomerPageObject) homePage.openDynamicPage(driver, "New Customer");
+//		Assert.assertTrue(newCustomerPage.isNewCustomerPageDisplayed());
+//		newAccountPage = (NewAccountPageObject) newCustomerPage.openDynamicPage(driver, "New Account");
+//		Assert.assertTrue(newAccountPage.isNewAccountPageDisplayed());
+//		depositPage = (DepositPageObject) newAccountPage.openDynamicPage(driver, "Deposit");
+//		Assert.assertTrue(depositPage.isDepositPageDisplayed(driver));
+//		homePage = (HomePageObject) depositPage.openDynamicPage(driver, "Manager");
+//		Assert.assertTrue(homePage.isHomePageDisplayed());
+//		newAccountPage = (NewAccountPageObject) homePage.openDynamicPage(driver, "New Account");
+//		Assert.assertTrue(newAccountPage.isNewAccountPageDisplayed());
+//		newAccountPage.openMoreDynamicPage(driver, "New Customer");
+//		newCustomerPage = PageFactoryManager.getNewCustomerPage(driver);
+//		Assert.assertTrue(newCustomerPage.isNewCustomerPageDisplayed());
+//	}
 
 	@AfterTest
 	public void quit() {

@@ -42,38 +42,43 @@ public class RegisterAndLoginToSystem_Level_7_CheckUnDisplayed_OverrideTimeout e
 	@BeforeTest
 	public void beforeClass(String browserName) {
 		driver = openMultiBrowser(browserName);
-		email = "sele" + randomEmail() + "@gmail.com";
+
 		loginPage = PageFactoryManager.getLoginPage(driver);
-	}
-
-	@Test
-	public void TC_01_Register() {
-		loginUrl = loginPage.getLoginPageUrl();
-		registerPage = loginPage.clickToHereLink();
-		registerPage.inputToEmailIDTextbox(email);
-		registerPage.clickToSubmitButton();
-		userID = registerPage.getUserIDText();
-		password = registerPage.getPasswordIDText();
-	}
-
-	@Test
-	public void TC_02_LoginWithInformationInAbove() {
-		registerPage.openLoginPageURL(loginUrl);
-		loginPage = new LoginPageObject(driver);
-		loginPage.inputToUserIDTextbox(userID);
-		loginPage.inputToPasswordTextbox(password);
+		loginPage.inputToUserIDTextbox(RegisterAndLoginToSystem_Global_Register_Login.USERID);
+		loginPage.inputToPasswordTextbox(RegisterAndLoginToSystem_Global_Register_Login.PASSWORD);
 		homePage = loginPage.clickToLoginButton();
 		homePage = new HomePageObject(driver);
 		Assert.assertTrue(homePage.isHomePageDisplayed());
 	}
 
-	@Test
-	public void TC_03_Account_03_WebDriverLifeCycle() {
-		newCustomerPage = homePage.openNewCustomerPage(driver);
-		Assert.assertTrue(newCustomerPage.isNewCustomerPageDisplayed());
-		Assert.assertTrue(newCustomerPage.isAddCustomerFormUnDisplayed());
-		Assert.assertTrue(newCustomerPage.isHomePageUnDisplayed());
-	}
+//	@Test
+//	public void TC_01_Register() {
+//		loginUrl = loginPage.getLoginPageUrl();
+//		registerPage = loginPage.clickToHereLink();
+//		registerPage.inputToEmailIDTextbox(email);
+//		registerPage.clickToSubmitButton();
+//		userID = registerPage.getUserIDText();
+//		password = registerPage.getPasswordIDText();
+//	}
+//
+//	@Test
+//	public void TC_02_LoginWithInformationInAbove() {
+//		registerPage.openLoginPageURL(loginUrl);
+//		loginPage = new LoginPageObject(driver);
+//		loginPage.inputToUserIDTextbox(userID);
+//		loginPage.inputToPasswordTextbox(password);
+//		homePage = loginPage.clickToLoginButton();
+//		homePage = new HomePageObject(driver);
+//		Assert.assertTrue(homePage.isHomePageDisplayed());
+//	}
+//
+//	@Test
+//	public void TC_03_Account_03_WebDriverLifeCycle() {
+//		newCustomerPage = homePage.openNewCustomerPage(driver);
+//		Assert.assertTrue(newCustomerPage.isNewCustomerPageDisplayed());
+//		Assert.assertTrue(newCustomerPage.isAddCustomerFormUnDisplayed());
+//		Assert.assertTrue(newCustomerPage.isHomePageUnDisplayed());
+//	}
 
 	@AfterTest
 	public void quit() {

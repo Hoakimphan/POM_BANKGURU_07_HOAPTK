@@ -160,7 +160,7 @@ public class AbstractPage {
 
 	public void checkTheCheckbox(WebDriver driver, String locator) {
 		WebElement element = driver.findElement(By.xpath(locator));
-		if (!element.isSelected()) // truong hop chua click
+		if (!element.isSelected()) 
 		{
 			element.click();
 		}
@@ -168,22 +168,28 @@ public class AbstractPage {
 
 	public void unCheckTheCheckbox(WebDriver driver, String locator) {
 		WebElement element = driver.findElement(By.xpath(locator));
-		if (element.isSelected()) // truong hop da click roi
+		if (element.isSelected()) 
 		{
 			element.click();
 		}
 	}
 
-	public boolean isControlDisplayed(WebDriver driver, String locator)// dung kieu boolean vi ham isDisplayed() la kieu
-																		// boolean
+	public boolean isControlDisplayed(WebDriver driver, String locator)
 	{
-		WebElement element = driver.findElement(By.xpath(locator));
-		return element.isDisplayed();
+		try
+		{
+			WebElement element = driver.findElement(By.xpath(locator));
+			boolean status = element.isDisplayed();
+			System.out.println(status);
+			return true;
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
 	}
 
-	public boolean isControlDisplayed(WebDriver driver, String locator, String... dynamicValue)// dung kieu boolean vi
-																								// ham isDisplayed() la
-																								// kieu boolean
+	public boolean isControlDisplayed(WebDriver driver, String locator, String... dynamicValue)
 	{
 		locator = String.format(locator, (Object[]) dynamicValue);
 		WebElement element = driver.findElement(By.xpath(locator));
@@ -231,20 +237,20 @@ public class AbstractPage {
 		driver.manage().timeouts().implicitlyWait(timeOut, TimeUnit.SECONDS);
 	}
 
-	public boolean isSelected(WebDriver driver, String locator)// dung kieu boolean vi ham isSelected() la kieu boolean
+	public boolean isSelected(WebDriver driver, String locator)
 	{
 		WebElement element = driver.findElement(By.xpath(locator));
 		return element.isSelected();
 	}
 
-	public boolean isEnabled(WebDriver driver, String locator)// dung kieu boolean vi ham isEnabled() la kieu boolean
+	public boolean isEnabled(WebDriver driver, String locator)
 	{
 		WebElement element = driver.findElement(By.xpath(locator));
 		return element.isEnabled();
 	}
 
 	/* WINDOWS */
-	public void switchToWindowByTitle(WebDriver driver, String title)// usin for more than 2 page + title is unique
+	public void switchToWindowByTitle(WebDriver driver, String title)
 	{
 		Set<String> allWindow = driver.getWindowHandles();
 		for (String runWindows : allWindow) {
@@ -404,7 +410,13 @@ public class AbstractPage {
 	public void waitToElementVisible(WebDriver driver, String locator) {
 		By byLocator = By.xpath(locator);
 		WebDriverWait waitExplicit = new WebDriverWait(driver, 30);
-		waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(byLocator));
+		try
+		{
+			waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(byLocator));
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	public void waitToElementVisible(WebDriver driver, String locator, String... dynamicValue) {

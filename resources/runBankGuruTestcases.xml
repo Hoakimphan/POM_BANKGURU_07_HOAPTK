@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="BANKGURU" parallel="tests" thread-count= "3">
-  <test name="Run on firefox">
-  <parameter name = "browser" value = "Firefox"/>
+<suite name="BANKGURU" parallel="false">
+
+  <listeners>
+  	<listener class-name="org.uncommons.reportng.HTMLReporter"/>
+  	<listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+  	<listener class-name="commons.ExtentReportListener"/>
+  </listeners>	
+  
+  
+ <!--  <test name="Run on firefox">
+  	<parameter name = "browser" value = "Firefox"/>
     <classes>
-      <class name="com.bankguru.payment.Payment"/>
+      <class name="com.bankguru.account.RegisterAndLoginToSystem_Level_8_Assert_Verify_Log_Report"/>
     </classes>
-  </test>
+  </test> -->
   <test name="Run on Chrome">
   <parameter name = "browser" value = "Chrome"/>
     <classes>
-      <class name="com.bankguru.payment.Payment"/>
+      <class name="com.bankguru.account.RegisterAndLoginToSystem_Global_Register_Login"/>
+      <class name="com.bankguru.account.RegisterAndLoginToSystem_Level_8_Assert_Verify_Log_Report"/>
     </classes>
   </test>
-  <test name="Run on Chrome Headless">
+ <!--  <test name="Run on Chrome Headless">
   <parameter name = "browser" value = "ChromeHeadless"/>
     <classes>
       <class name="com.bankguru.payment.Payment"/>
     </classes>
-  </test>
+  </test> -->
 </suite> 
